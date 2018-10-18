@@ -1,0 +1,22 @@
+<body class="page-background" id="main-page">
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+      {{#each articles}}
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+          <a href="{{link}}" class="card-link"><i class="far fa-newspaper"></i>    Read Article on New York Times</a>
+          <br>
+          <br>
+          <p class="card-text">Article Summary: {{summary}}</p>
+          <br>
+          <a data-articleId="{{_id}}" class="btn btn-primary" id="save-btn">Save article</a>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
