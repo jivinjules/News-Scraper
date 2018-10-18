@@ -34,9 +34,9 @@ router.get("/", (req, res) => {
         });
 });
 
-//Clearing articles if I need to//////////////////IF I NEED TO CLEAR IT
+//Clearing articles not saved to save again
 router.get('/clear', function(req, res) {
-    db.Article.remove({}, function(err, doc) {
+    db.Article.remove({ saved: false}, function(err, doc) {
         if (err) {
             console.log(err);
         } else {
@@ -109,10 +109,10 @@ router.get("/articles", function (req, res) {
 
 
 // Route for grabbing a specific Article by id, populate it with it's note
-router.get("/articles/:id", function (req, res) {
+router.get("/saved/:id", function (req, res) {
     db.Article.findOne({ _id: req.params.id })
 
-        .populate("note")
+        .populate("comment")
         .then(function (dbArticle) {
             res.json(dbArticle);
         })
@@ -121,14 +121,15 @@ router.get("/articles/:id", function (req, res) {
         })
 });
 
+////////////////////////////////check
 router.get("/saved", function(req, res) {
     db.Article.find({saved: true})
       .then(function(dbArticle) {
-        // if successful, then render with the handlebars saved page
-        res.render("saved", {
-          articles: dbArticle
-        })
-      })
+        var hbsObject = {
+            articles: dbArticle
+        };
+        res.render("saved", hbsObject);        
+    })
       .catch(function(err) {
         // If an error occurs, send the error back to the client
         res.json(err);
@@ -149,7 +150,7 @@ router.get("/saved", function(req, res) {
 
 
 // Route for saving/updating an Article's associated Note
-router.post("/articles/:id", function (req, res) {
+router.post("/saved/:id", function (req, res) {
     db.Comment.create(req.body)
         .then(function (dbComment) {
             return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: {comment: dbComment._id }}, { name: dbComment._id }, { saved: true });

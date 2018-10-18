@@ -51,7 +51,7 @@ body {
   height: 700px;
 }
 
-#save-btn {
+#save-btn, #comment {
   background-color: rgba(69, 5, 5, 0.734) !important;
   border: none;
 }
@@ -73,4 +73,8 @@ img {
 .page-footer {
   background-color:  rgba(69, 5, 5, 0.734) !important;
   color: white;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }

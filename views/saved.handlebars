@@ -8,13 +8,13 @@
         <h5 class="card-title">{{title}}</h5>
         <a href="{{link}}" class="card-link">New York Times Article</a>
         <p class="card-text">Article Summary: {{summary}}</p>
-        <a data-articleId= {{_id}} class="btn btn-primary note-modal-btn" data-toggle="modal">Add a comment!</a>
+        <a data-articleId= {{_id}} class="btn btn-primary note-modal-btn" id= "comment" data-toggle="modal">Add a comment!</a>
       </div>
     </div>
   {{/each}}
 </div>
 
-
+{{#each comments}}
 <div id="add-note-modal" class="modal" tabindex="-1" role="dialog" data-articleId="">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -25,8 +25,8 @@
         <ul class="notes-list">
         </ul>
         <div class="form-group">
-          <label for="note-area">New Comment</label>
-          <textarea name="new-note-area" class="form-control" id="note-body" rows="2" required></textarea>
+          <label for="note-area" id="comment-title">Title</label>
+          <textarea name="new-note-area" class="form-control" id="comment-body" rows="2"></textarea>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -36,3 +36,5 @@
       </div>
     </div>
   </div>
+  </div>
+  {{/each}}
