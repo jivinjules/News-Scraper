@@ -1,40 +1,40 @@
 <body class="page-background" id="saved-page">
 
-<div class="container">
-  <h3 id ="saved">Saved articles</h3>
-  {{#each articles}}
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{title}}</h5>
-        <a href="{{link}}" class="card-link">New York Times Article</a>
-        <p class="card-text">Article Summary: {{summary}}</p>
-        <a data-articleId= {{_id}} class="btn btn-primary note-modal-btn" id= "comment" data-toggle="modal">Add a comment!</a>
-      </div>
-    </div>
-  {{/each}}
-</div>
-
-{{#each comments}}
-<div id="add-note-modal" class="modal" tabindex="-1" role="dialog" data-articleId="">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 id="note-modal-title" class="modal-title"></h5>
-      </div>
-      <div class="modal-body container">
-        <ul class="notes-list">
-        </ul>
-        <div class="form-group">
-          <label for="note-area" id="comment-title">Title</label>
-          <textarea name="new-note-area" class="form-control" id="comment-body" rows="2"></textarea>
+    <div class="container">
+        <h3 id="saved">Saved articles</h3>
+        {{#each articles}}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+                <a href="{{link}}" class="card-link">New York Times Article</a>
+                <p class="card-text">Article Summary: {{summary}}</p>
+                <a data-articleid={ {_id}} class="btn btn-primary note-modal-btn" id="comment" data-toggle="modal">Add a comment!</a>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary note-save-btn" data-dismiss="modal">Save</button>
-
-        </div>
-      </div>
+        {{/each}}
     </div>
-  </div>
-  </div>
-  {{/each}}
+
+    {{#each comment}}
+    <div id="add-note-modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="note-modal-title" class="modal-title" id="comment-title">{{title}}</h5>
+                </div>
+                <div class="modal-body container">
+                    <ul class="notes-list">
+                    </ul>
+                    <div class="form-group">
+                        <label for="note-area">Comment</label>
+                        <textarea name="new-note-area" class="form-control" id="comment-body" rows="2">{{body}}</textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary note-save-btn" data-dismiss="modal"  data-commentid={{_id}}>Save</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}

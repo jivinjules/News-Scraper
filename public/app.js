@@ -27,22 +27,29 @@ $(document).ready(function () {
   })
 
   /////SAVE AN ARTICLE
-  $("#save-btn").on("click", function (event) {
+  $(document).on("click", "#save-btn", function (event) {
+    console.log("click")
     var savedArticle = $(this).attr("data-articleid");
     // savedArticle.saved = true;
 
     $.ajax({
       method: "GET",
-      url: "/saved/" + savedArticle
-    }).then(function (data) {
-      location.reload()
+      url: "/articles/" + savedArticle
+    }).then(function () {
+      var hbsObject = {
+            articles: dbArticle
+        };
     }
     )
   })
 
+  $('body').on('click', function () {
+    console.log('body was clicked')
+  })
+
   /////CLEAR OUT ALL ARTICLES
-  $("#delete-all-btn").on("click", function () {
-    $("#articles").empty();
+  $(document).on("click", "#delete-btn", function () {
+
     $.ajax({
       method: "GET",
       url: "/clear"
@@ -51,31 +58,33 @@ $(document).ready(function () {
       window.location.href = "/";
     });
   });
-});
 
-// Run a POST request to change the note, using what's entered in the inputs
-$("#comment").on("click", function() {
 
-$.ajax({
-  method: "POST",
-  url: "/saved/" + thisId,
-  data: {
-    // Value taken from title input
-    title: $("#comment-title").val(),
-    // Value taken from note textarea
-    body: $("#comment-body").val()
-  }
-})
-  // With that done
-  .then(function (data) {
-    // Log the response
-    console.log(data);
-    // Empty the notes section
-    $("#notes").empty();
+  // Run a POST request to change the note, using what's entered in the inputs
+  $(document).on("click", "#comment", function () {
+    $("#add-note-modal").modal('toggle')
+    var thisId = $(this).attr("data-articleid");
+
+    $.ajax({
+      method: "POST",
+      url: "/saved/" + thisId,
+      data: {
+        // Value taken from title input
+        title: $("#comment-title").val(),
+        // Value taken from note textarea
+        body: $("#comment-body").val()
+      }
+    })
+      // With that done
+      .then(function (data) {
+        // Log the response
+        console.log(data);
+        // Empty the notes section
+        $("#notes").empty();
+      });
+
+    // Also, remove the values entered in the input and textarea for note entry
+    $("#comment-title").val("");
+    $("#comment-body").val("");
   });
-
-// Also, remove the values entered in the input and textarea for note entry
-$("#comment-title").val("");
-$("#comment-body").val("");
 });
-  

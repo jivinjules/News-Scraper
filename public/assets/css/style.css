@@ -30,7 +30,7 @@ body {
   font-size: 35px;
 }
 
-#scrape-btn {
+#scrape-btn, #delete-btn {
   background-color:  rgba(69, 5, 5, 0.734) !important;
 }
 

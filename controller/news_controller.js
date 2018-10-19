@@ -134,14 +134,18 @@ router.get("/saved", function(req, res) {
         // If an error occurs, send the error back to the client
         res.json(err);
       })
-  
+     
   });
 
-  router.get('/saved/:id', function(req,res) {
-    db.Article.update({_id: req.params.id},{saved: true})
-      .then(function(result) {
-           res.redirect('/')
-        })
+  router.get('/articles/:id', function(req,res) {
+      console.log("did it get it")
+    db.Article.findOneAndUpdate({_id: req.params.id},{saved: true})
+    .then(function(dbArticle) {
+        // var hbsObject = {
+        //     articles: dbArticle
+        // };
+        res.render("saved", hbsObject);        
+    })
       .catch(function(err) {
           res.json(err)
       })
@@ -153,7 +157,7 @@ router.get("/saved", function(req, res) {
 router.post("/saved/:id", function (req, res) {
     db.Comment.create(req.body)
         .then(function (dbComment) {
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: {comment: dbComment._id }}, { name: dbComment._id }, { saved: true });
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true });
         })
         .then(function (dbArticle) {
             res.render("saved", {articles: dbArticle})
