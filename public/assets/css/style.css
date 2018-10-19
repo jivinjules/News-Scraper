@@ -51,7 +51,7 @@ body {
   height: 700px;
 }
 
-#save-btn, .addNote, .delete, .saveNote, .deleteNote, .save {
+#save-btn, .addNote, .delete, .save-note-btn, .delete-note-btn, .save {
   background-color: rgba(69, 5, 5, 0.734) !important;
   border: none;
 }

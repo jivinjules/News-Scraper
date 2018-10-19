@@ -1,5 +1,5 @@
 //SCRAPE
-$(".save").on("click", function() {
+$("#scrape-btn").on("click", function() {
     $.ajax({
         method: "GET",
         url: "/scrape",
@@ -32,22 +32,22 @@ $(".delete").on("click", function() {
 });
 
 //SAVE NOTE
-$(".saveNote").on("click", function() {
+$(".save-note-btn").on("click", function() {
     var thisId = $(this).attr("data-id");
-    if (!$("#noteText" + thisId).val()) {
+    if (!$("#note-Body" + thisId).val()) {
         alert("please enter a note to save")
     }else {
       $.ajax({
             method: "POST",
             url: "/notes/save/" + thisId,
             data: {
-              text: $("#noteText" + thisId).val()
+              text: $("#note-Body" + thisId).val()
             }
           }).done(function(data) {
               // Log the response
               console.log(data);
               // Empty the notes section
-              $("#noteText" + thisId).val("");
+              $("#note-Body" + thisId).val("");
               $(".modalNote").modal("hide");
               window.location = "/saved"
           });
@@ -55,7 +55,7 @@ $(".saveNote").on("click", function() {
 });
 
 //DELTE NOTE
-$(".deleteNote").on("click", function() {
+$(".delete-note-btn").on("click", function() {
     var noteId = $(this).attr("data-note-id");
     var articleId = $(this).attr("data-article-id");
     $.ajax({
