@@ -9,6 +9,6 @@ News Scraper was built with...
 2. Back-end: Node, Express, Mongo DB, and npm packages Cheerio and Axios
 
 ## Heroku Link
-coming...
+[Deployed on Heroku](https://salty-chamber-37652.herokuapp.com/)
 
 ![screenshot](/public/assets/img/news-scraper-screenshot.png)
