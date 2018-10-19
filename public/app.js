@@ -67,3 +67,14 @@ $(".delete-note-btn").on("click", function() {
         window.location = "/saved"
     })
 });
+
+//DELETE BUTTON
+$("#delete-btn").on("click", function() {
+    $.ajax({
+        method: "GET",
+        url: "/clear"
+    }).done(function(data) {
+        console.log("CLEAR")
+        window.location = '/'
+    })
+})

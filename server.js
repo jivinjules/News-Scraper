@@ -63,9 +63,9 @@ app.get("/saved", function (req, res) {
 ///////////////////////////ROUTES TO SCRAPE
 app.get("/scrape", function (req, res) {
     ////get html
-    axios.get("https://www.nytimes.com/section/us", function (error, response, html) {
+    axios.get("https://www.nytimes.com/section/us").then(function (response) {
         // Then, we load that into cheerio and save it to $ for a shorthand selector
-        var $ = cheerio.load(html);
+        var $ = cheerio.load(response.data);
         $("div.story-body").each(function (i, element) {
 
             var result = {};
@@ -81,20 +81,15 @@ app.get("/scrape", function (req, res) {
                 .find("p.summary")
                 .text();
 
-            var entry = new Article(result);
-
-            // save to database
-            entry.save(function (err, data) {
-                // Log any errors
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    console.log(data);
-                }
-            });
-
-        });
+                Article.create(result) 
+                    .then(function(data) {
+                        console.log(data);
+                    })
+                    .catch(function(err) {
+                        return res.json(err)
+                    })
+                })
+   
         res.send("Scrape Complete");
 
     });
